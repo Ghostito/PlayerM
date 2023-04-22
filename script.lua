@@ -240,7 +240,7 @@ for i,player in pairs(Players:GetPlayers()) do
                 -- if err then print(err) end
             end
         end
-        for _,funct in pairs(PlayerM.OnPlayerJoin) do
+        for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
             local sucess, err = pcall(funct,player, true)
             -- if err then print(err) end
         end
@@ -272,7 +272,7 @@ Players.PlayerAdded:connect(function(player)
         PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
         table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
-            local sucess, err = pcall(funct,player)
+            local sucess, err = pcall(funct,player, false)
             -- if err then print(err) end
         end
     elseif found == true then
