@@ -215,7 +215,7 @@ function PlayerM:GetPlayer(str)
         for _, player in ipairs (Players:GetPlayers()) do
             if player ~= lp then
                 if player.Name:lower():match(str:lower()) then
-                    table.insert(matches)
+                    table.insert(matches, player)
                 end
             end
         end
