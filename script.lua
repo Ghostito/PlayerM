@@ -270,7 +270,7 @@ Players.PlayerAdded:connect(function(player)
     if found == false then
        
         PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
-        table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = Player})
+        table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
             local sucess, err = pcall(funct,player)
             -- if err then print(err) end
@@ -278,7 +278,7 @@ Players.PlayerAdded:connect(function(player)
     elseif found == true then
         tab.Player = player
         for _,funct in pairs(PlayerM.OnPlayerRejoin) do
-            local sucess, err = pcall(funct,player)
+            local sucess, err = pcall(funct,player, false)
             -- if err then print(err) end
         end
     end
@@ -293,7 +293,7 @@ Players.PlayerAdded:connect(function(player)
     end)
     -- Joined
     for _,funct in pairs(PlayerM.OnPlayerJoin) do
-        local sucess, err = pcall(funct,player)
+        local sucess, err = pcall(funct,player, false)
         -- if err then print(err) end
     end
     
