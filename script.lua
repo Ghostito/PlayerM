@@ -231,7 +231,10 @@ end
 for i,player in pairs(Players:GetPlayers()) do
     PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
     table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
-
+    for _,funct in pairs(PlayerM.OnPlayerJoin) do
+        local sucess, err = pcall(funct,player)
+        if err then print(err) end
+    end
     task.spawn(function()
         repeat wait() until PlayerM.Started == true
         if PlayerM:IsSpecial(player) then
@@ -288,8 +291,6 @@ Players.PlayerAdded:connect(function(player)
             end
         end
     end)
-    print(player.Name)
-    print(found)
     -- Joined
     for _,funct in pairs(PlayerM.OnPlayerJoin) do
         local sucess, err = pcall(funct,player)
