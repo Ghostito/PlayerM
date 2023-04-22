@@ -255,11 +255,7 @@ function PlayerM:GetName(plr)
     return "[#"..num.."]: "..ds.."@"..un
 end
 Players.PlayerAdded:connect(function(player)
-    -- Joined
-    for _,funct in pairs(PlayerM.OnPlayerJoin) do
-        local sucess, err = pcall(funct[1],player)
-        if err then print(err) end
-    end
+
     local found = false
     local tab = nil
     for _,f in pairs(PlayerM.TotalPlayers) do
@@ -269,6 +265,7 @@ Players.PlayerAdded:connect(function(player)
         end
     end
     if found == false then
+       
         PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
         table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = Player})
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
@@ -291,6 +288,13 @@ Players.PlayerAdded:connect(function(player)
             end
         end
     end)
+    print(player.Name)
+    print(found)
+    -- Joined
+    for _,funct in pairs(PlayerM.OnPlayerJoin) do
+        local sucess, err = pcall(funct[1],player)
+        if err then print(err) end
+    end
     
 end)
 
