@@ -175,8 +175,7 @@ function NumberFromPlayer(plr)
     end
 end
 function PlayerM:GetPlayer(str)
-    print(string.sub(str, 0,#PlayerM.Prefix))
-    if string.sub(str, 0,#PlayerM.Prefix) == PlayerM.Prefix then
+    if #str >= #PlayerM.Prefix and string.sub(str, 0,#PlayerM.Prefix) == PlayerM.Prefix then
         
         str = string.sub(str,(#PlayerM.Prefix+1),#str)
         print(str)
