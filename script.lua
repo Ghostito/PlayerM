@@ -19,14 +19,14 @@ local PlayerM = {
     OnSpecialPlayerFound = {}
 }
 local lp = Players.LocalPlayer
-function PlayerM.OnPlayerJoin:Connect(funct, player)
+function PlayerM.OnPlayerJoin:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
     end
     local t = PlayerM.OnPlayerJoin
     local tab = {}
     local index = #t
-    table.insert(t, {funct, player})
+    table.insert(t, {funct})
     local disconnect
     function tab:Disconnect()
         for i,v in pairs(t) do
@@ -39,14 +39,14 @@ function PlayerM.OnPlayerJoin:Connect(funct, player)
     end
     return tab
 end
-function PlayerM.OnSpecialPlayerJoin:Connect(funct, player)
+function PlayerM.OnSpecialPlayerJoin:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
     end
     local t = PlayerM.OnSpecialPlayerJoin
     local tab = {}
     local index = #t
-    table.insert(t, {funct, player})
+    table.insert(t, {funct})
     local disconnect
     function tab:Disconnect()
         for i,v in pairs(t) do
@@ -59,14 +59,14 @@ function PlayerM.OnSpecialPlayerJoin:Connect(funct, player)
     end
     return tab
 end
-function PlayerM.OnSpecialPlayerFound:Connect(funct, player)
+function PlayerM.OnSpecialPlayerFound:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
     end
     local t = PlayerM.OnSpecialPlayerFound
     local tab = {}
     local index = #t
-    table.insert(t, {funct, player})
+    table.insert(t, {funct})
     local disconnect
     function tab:Disconnect()
         for i,v in pairs(t) do
@@ -79,14 +79,14 @@ function PlayerM.OnSpecialPlayerFound:Connect(funct, player)
     end
     return tab
 end
-function PlayerM.OnPlayerRejoin:Connect(funct, player)
+function PlayerM.OnPlayerRejoin:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
     end
     local t = PlayerM.OnPlayerRejoin
     local tab = {}
     local index = #t
-    table.insert(t, {funct, player})
+    table.insert(t, {funct})
     local disconnect
     function tab:Disconnect()
         for i,v in pairs(t) do
@@ -99,14 +99,14 @@ function PlayerM.OnPlayerRejoin:Connect(funct, player)
     end
     return tab
 end
-function PlayerM.OnPlayerFirstJoin:Connect(funct, player)
+function PlayerM.OnPlayerFirstJoin:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
     end
     local t = PlayerM.OnPlayerFirstJoin
     local tab = {}
     local index = #t
-    table.insert(t, {funct, player})
+    table.insert(t, {funct})
     local disconnect
     function tab:Disconnect()
         for i,v in pairs(t) do
@@ -119,14 +119,14 @@ function PlayerM.OnPlayerFirstJoin:Connect(funct, player)
     end
     return tab
 end
-function PlayerM.OnPlayerLeft:Connect(funct, player)
+function PlayerM.OnPlayerLeft:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
     end
     local t = PlayerM.OnPlayerLeft
     local tab = {}
     local index = #t
-    table.insert(t, {funct, player})
+    table.insert(t, {funct})
     local disconnect
     function tab:Disconnect()
         for i,v in pairs(t) do
@@ -214,7 +214,7 @@ function PlayerM:GetPlayer(str)
         for _, player in ipairs (Players:GetPlayers()) do
             if player ~= lp then
                 if player.Name:lower():match(str:lower()) then
-                    table.insert(matches, player)
+                    table.insert(matches)
                 end
             end
         end
@@ -230,13 +230,13 @@ function PlayerM:GetPlayer(str)
 end
 for i,player in pairs(Players:GetPlayers()) do
     PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
-    table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = Player})
+    table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
 
     task.spawn(function()
         repeat wait() until PlayerM.Started == true
         if PlayerM:IsSpecial(player) then
             for _,funct in pairs(PlayerM.OnSpecialPlayerFound) do
-                local sucess, err = pcall(funct[1], funct[2])
+                local sucess, err = pcall(funct[1],player)
                 if err then print(err) end
             end
         end
@@ -258,7 +258,7 @@ end
 Players.PlayerAdded:connect(function(player)
     -- Joined
     for _,funct in pairs(PlayerM.OnPlayerJoin) do
-        local sucess, err = pcall(funct[1], funct[2])
+        local sucess, err = pcall(funct[1],player)
         if err then print(err) end
     end
     local found = false
@@ -273,13 +273,13 @@ Players.PlayerAdded:connect(function(player)
         PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
         table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = Player})
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
-            local sucess, err = pcall(funct[1], funct[2])
+            local sucess, err = pcall(funct[1],player)
             if err then print(err) end
         end
     elseif found == true then
         tab.Player = player
         for _,funct in pairs(PlayerM.OnPlayerRejoin) do
-            local sucess, err = pcall(funct[1], funct[2])
+            local sucess, err = pcall(funct[1],player)
             if err then print(err) end
         end
     end
@@ -287,7 +287,7 @@ Players.PlayerAdded:connect(function(player)
         repeat wait() until PlayerM.Started == true
         if PlayerM:IsSpecial(player) then
             for _,funct in pairs(PlayerM.OnSpecialPlayerJoin) do
-                local sucess, err = pcall(funct[1], funct[2])
+                local sucess, err = pcall(funct[1],player)
                 if err then print(err) end
             end
         end
@@ -297,7 +297,7 @@ end)
 
 Players.PlayerRemoving:connect(function(player)
     for _,funct in pairs(PlayerM.OnPlayerLeft) do
-        local sucess, err = pcall(funct[1], funct[2])
+        local sucess, err = pcall(funct[1],player)
         if err then print(err) end
     end
 end)
