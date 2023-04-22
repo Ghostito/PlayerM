@@ -241,7 +241,7 @@ for i,player in pairs(Players:GetPlayers()) do
             end
         end
         for _,funct in pairs(PlayerM.OnPlayerJoin) do
-            local sucess, err = pcall(funct,player)
+            local sucess, err = pcall(funct,player, true)
             -- if err then print(err) end
         end
     end)
