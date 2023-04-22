@@ -176,7 +176,9 @@ function NumberFromPlayer(plr)
 end
 function PlayerM:GetPlayer(str)
     if string.sub(str, 0,#PlayerM.Prefix) == PlayerM.Prefix then
+        
         str = string.sub(str,(#PlayerM.Prefix+1),#str)
+        print(str)
         if str == "s" then
             PlayerM.LastPlayer = PlayerM.SelectedPlayer
             return PlayerM.SelectedPlayer
