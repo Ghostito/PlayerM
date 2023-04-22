@@ -229,7 +229,7 @@ function PlayerM:GetPlayer(str)
     return nil
 end
 for i,player in pairs(Players:GetPlayers()) do
-    PlayerM.CountedPlayers = PlayerM.CogetnameuntedPlayers+1
+    PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
     table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
 
     task.spawn(function()
