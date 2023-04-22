@@ -267,7 +267,7 @@ Players.PlayerAdded:connect(function(player)
     
 end)
 
-Players.PlayerRemoved:connect(function(player)
+Players.PlayerRemoving:connect(function(player)
     for _,funct in pairs(PlayerM.OnPlayerLeft) do
         local sucess, err = pcall(funct)
         if err then print(err) end
