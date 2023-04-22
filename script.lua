@@ -248,11 +248,11 @@ function PlayerM:GetName(plr)
     if ds == un then
         ds = ""
     else
-        ds = ds.." @"..un
+        ds = ds.." "
     end
     local num = NumberFromPlayer(plr)
 
-    return "[#"..num.."]: "..ds..ds
+    return "[#"..num.."]: "..ds.."@"..un
 end
 Players.PlayerAdded:connect(function(player)
     -- Joined
