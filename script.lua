@@ -229,7 +229,7 @@ function PlayerM:GetPlayer(str)
     return nil
 end
 for i,player in pairs(Players:GetPlayers()) do
-    PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
+    PlayerM.CountedPlayers = PlayerM.CogetnameuntedPlayers+1
     table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
 
     task.spawn(function()
@@ -237,12 +237,12 @@ for i,player in pairs(Players:GetPlayers()) do
         if PlayerM:IsSpecial(player) then
             for _,funct in pairs(PlayerM.OnSpecialPlayerFound) do
                 local sucess, err = pcall(funct,player)
-                if err then print(err) end
+                -- if err then print(err) end
             end
         end
         for _,funct in pairs(PlayerM.OnPlayerJoin) do
             local sucess, err = pcall(funct,player)
-            if err then print(err) end
+            -- if err then print(err) end
         end
     end)
 end
@@ -273,13 +273,13 @@ Players.PlayerAdded:connect(function(player)
         table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = Player})
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
             local sucess, err = pcall(funct,player)
-            if err then print(err) end
+            -- if err then print(err) end
         end
     elseif found == true then
         tab.Player = player
         for _,funct in pairs(PlayerM.OnPlayerRejoin) do
             local sucess, err = pcall(funct,player)
-            if err then print(err) end
+            -- if err then print(err) end
         end
     end
     task.spawn(function()
@@ -287,14 +287,14 @@ Players.PlayerAdded:connect(function(player)
         if PlayerM:IsSpecial(player) then
             for _,funct in pairs(PlayerM.OnSpecialPlayerJoin) do
                 local sucess, err = pcall(funct,player)
-                if err then print(err) end
+                -- if err then print(err) end
             end
         end
     end)
     -- Joined
     for _,funct in pairs(PlayerM.OnPlayerJoin) do
         local sucess, err = pcall(funct,player)
-        if err then print(err) end
+        -- if err then print(err) end
     end
     
 end)
@@ -302,7 +302,7 @@ end)
 Players.PlayerRemoving:connect(function(player)
     for _,funct in pairs(PlayerM.OnPlayerLeft) do
         local sucess, err = pcall(funct,player)
-        if err then print(err) end
+        -- if err then print(err) end
     end
 end)
 
