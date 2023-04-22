@@ -15,7 +15,8 @@ local PlayerM = {
     SpecialPlayers = nil,
     SpecialName = "Special",
     Started = false,
-    OnSpecialPlayerJoin = {}
+    OnSpecialPlayerJoin = {},
+    OnSpecialPlayerFound = {}
 }
 local lp = Players.LocalPlayer
 function PlayerM.OnPlayerJoin:Connect(funct)
