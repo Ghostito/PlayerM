@@ -255,7 +255,6 @@ function PlayerM:GetName(plr)
         ds = ds.." "
     end
     local num = NumberFromPlayer(plr)
-    print(num)
     return "[#"..num.."]: "..ds.."@"..un
 end
 Players.PlayerAdded:connect(function(player)
