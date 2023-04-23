@@ -224,10 +224,8 @@ for i,player in pairs(Players:GetPlayers()) do
             repeat wait() until PlayerM.Started == true
         end
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
-            if type(funct) == "function" then
-                local sucess, err = pcall(funct,player, true)
-                if err then print(err) end
-            end
+            local sucess, err = pcall(funct,player)
+            if err then print(err) end
            
         end
         if PlayerM:IsSpecial(player) then
