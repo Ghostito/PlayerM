@@ -24,9 +24,6 @@ function PlayerM:Start()
 end
 
 function PlayerM.OnPlayerJoin:Connect(funct)
-    if PlayerM.Started == false then
-        repeat wait() until PlayerM.Started == true
-    end
     local t = PlayerM.OnPlayerJoin
     local tab = {}
     local index = #t
@@ -44,9 +41,6 @@ function PlayerM.OnPlayerJoin:Connect(funct)
     return tab
 end
 function PlayerM.OnSpecialPlayerJoin:Connect(funct)
-    if PlayerM.Started == false then
-        repeat wait() until PlayerM.Started == true
-    end
     local t = PlayerM.OnSpecialPlayerJoin
     local tab = {}
     local index = #t
@@ -64,9 +58,6 @@ function PlayerM.OnSpecialPlayerJoin:Connect(funct)
     return tab
 end
 function PlayerM.OnSpecialPlayerFound:Connect(funct)
-    if PlayerM.Started == false then
-        repeat wait() until PlayerM.Started == true
-    end
     local t = PlayerM.OnSpecialPlayerFound
     local tab = {}
     local index = #t
@@ -84,9 +75,6 @@ function PlayerM.OnSpecialPlayerFound:Connect(funct)
     return tab
 end
 function PlayerM.OnPlayerRejoin:Connect(funct)
-    if PlayerM.Started == false then
-        repeat wait() until PlayerM.Started == true
-    end
     local t = PlayerM.OnPlayerRejoin
     local tab = {}
     local index = #t
@@ -104,9 +92,6 @@ function PlayerM.OnPlayerRejoin:Connect(funct)
     return tab
 end
 function PlayerM.OnPlayerFirstJoin:Connect(funct)
-    if PlayerM.Started == false then
-        repeat wait() until PlayerM.Started == true
-    end
     local t = PlayerM.OnPlayerFirstJoin
     local tab = {}
     local index = #t
@@ -124,9 +109,6 @@ function PlayerM.OnPlayerFirstJoin:Connect(funct)
     return tab
 end
 function PlayerM.OnPlayerLeft:Connect(funct)
-    if PlayerM.Started == false then
-        repeat wait() until PlayerM.Started == true
-    end
     local t = PlayerM.OnPlayerLeft
     local tab = {}
     local index = #t
