@@ -19,6 +19,10 @@ local PlayerM = {
     OnSpecialPlayerFound = {}
 }
 local lp = Players.LocalPlayer
+function PlayerM:Start()
+    PlayerM.Started = true
+end
+
 function PlayerM.OnPlayerJoin:Connect(funct)
     if PlayerM.Started == false then
         repeat wait() until PlayerM.Started == true
@@ -234,7 +238,10 @@ for i,player in pairs(Players:GetPlayers()) do
     table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
 
     task.spawn(function()
-        repeat wait() until PlayerM.Started == true
+        if PlayerM.Started == false then
+            repeat wait() until PlayerM.Started == true
+        end
+        
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
             local sucess, err = pcall(funct,player, true)
             -- if err then print(err) end
@@ -328,8 +335,6 @@ function PlayerM:AddSpecialPlayer(plr)
     end
 end
 
-function PlayerM:Start()
-    PlayerM.Started = true
-end
+
 
 return PlayerM
