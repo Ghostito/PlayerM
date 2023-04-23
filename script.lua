@@ -219,7 +219,7 @@ for i,player in pairs(Players:GetPlayers()) do
     PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
     table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
 
-    task.spawn(function()
+    coroutine.wrap(function()
         if PlayerM.Started == false then
             repeat wait() until PlayerM.Started == true
         end
@@ -234,8 +234,7 @@ for i,player in pairs(Players:GetPlayers()) do
                 -- if err then print(err) end
             end
         end
-        
-    end)
+    end)()
 end
 function PlayerM:GetName(plr)
     local ds = plr.DisplayName
