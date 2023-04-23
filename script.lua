@@ -224,9 +224,8 @@ for i,player in pairs(Players:GetPlayers()) do
             repeat wait() until PlayerM.Started == true
         end
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
-            local sucess, err = pcall(funct,player)
+            local sucess, err = pcall(funct,player, true)
             if err then print(err) end
-           
         end
         if PlayerM:IsSpecial(player) then
             for _,funct in pairs(PlayerM.OnSpecialPlayerFound) do
@@ -261,19 +260,28 @@ Players.PlayerAdded:connect(function(player)
        
         PlayerM.CountedPlayers = PlayerM.CountedPlayers+1
         table.insert(PlayerM.TotalPlayers, {UserId = player.UserId, Number = PlayerM.CountedPlayers, Player = player})
+        if PlayerM.Started == false then
+            repeat wait() until PlayerM.Started == true
+        end
         for _,funct in pairs(PlayerM.OnPlayerFirstJoin) do
             local sucess, err = pcall(funct,player, false)
             -- if err then print(err) end
         end
     elseif found == true then
         tab.Player = player
+        if PlayerM.Started == false then
+            repeat wait() until PlayerM.Started == true
+        end
         for _,funct in pairs(PlayerM.OnPlayerRejoin) do
             local sucess, err = pcall(funct,player, false)
             -- if err then print(err) end
         end
     end
     task.spawn(function()
-        repeat wait() until PlayerM.Started == true
+        if PlayerM.Started == false then
+            repeat wait() until PlayerM.Started == true
+        end
+        
         if PlayerM:IsSpecial(player) then
             for _,funct in pairs(PlayerM.OnSpecialPlayerJoin) do
                 local sucess, err = pcall(funct,player)
@@ -282,6 +290,9 @@ Players.PlayerAdded:connect(function(player)
         end
     end)
     -- Joined
+    if PlayerM.Started == false then
+        repeat wait() until PlayerM.Started == true
+    end
     for _,funct in pairs(PlayerM.OnPlayerJoin) do
         local sucess, err = pcall(funct,player, false)
         -- if err then print(err) end
@@ -290,6 +301,9 @@ Players.PlayerAdded:connect(function(player)
 end)
 
 Players.PlayerRemoving:connect(function(player)
+    if PlayerM.Started == false then
+        repeat wait() until PlayerM.Started == true
+    end
     for _,funct in pairs(PlayerM.OnPlayerLeft) do
         local sucess, err = pcall(funct,player)
         -- if err then print(err) end
