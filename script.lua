@@ -160,6 +160,7 @@ function NumberFromPlayer(plr)
         end
     end
 end
+
 function PlayerM:GetPlayer(str)
     if str ~= "" and #str >= #PlayerM.Prefix and string.sub(str, 0,#PlayerM.Prefix) == PlayerM.Prefix then
         
@@ -314,6 +315,14 @@ end)
 function PlayerM:SetSpecialPlayerTable(tab)
     if type(tab) == "table" then
         PlayerM.SpecialPlayers = tab
+        for i,player in pairs(game.Players:GetPlayers()) do
+            if PlayerM:IsSpecial(player) then
+                for _,funct in pairs(PlayerM.OnSpecialPlayerFound) do
+                    local sucess, err = pcall(funct,player)
+                end
+            end
+        end
+        
     elseif tab == nil then
         PlayerM.SpecialPlayers = nil
     end
